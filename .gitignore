@@ -2,3 +2,4 @@
 *.png
 *.lock
 .DS_Store
+/images

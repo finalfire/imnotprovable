@@ -11,76 +11,76 @@ fn view(app: &App, frame: Frame) {
 
     // Begin drawing
     let draw = app.draw();
+    draw.background().color(shex2dec("303036"));
 
-    draw.background().color(WHITE);
-
-    let colors: Vec<Rgb> = [
-        //"160f29","246a73","368f8b","f3dfc1","ddbea8",
-        "d3f8e2","e4c1f9","f694c1","ede7b1","a9def9",
-        "2e86ab","a23b72","f18f01","c73e1d","3b1f2b",
-        "7a306c","8e8dbe","a9e4ef","81f495","96f550"
-    ].iter().map(|c| shex2dec(c)).collect();
-
-    let win = app.window_rect();
-    let win_p = win.pad(89.0);
-
-    let mut els: Vec<Rect> = Vec::new();
-
-    let r = Rect::from_w_h(34.0, 34.0).top_left_of(win_p);
-    draw.rect()
-        .xy(r.xy())
-        .wh(r.wh())
-        .color(colors[random_range(0, colors.len())]);
+    let colors: Vec<Rgba> = [
+        "f79256","fbd1a2","7dcfb6","00b2ca","1d4e89",
+        "f18f01","048ba8","2e4057","99c24d"
+    ].iter().map(|c| shex2deca(c)).collect();
     
-    els.push(r);
+    let transparent = rgba(1.0, 1.0, 1.0, 0.0);
 
-    let rows = 25;
-    let columns = 25;
+    let win_x = 824.0;
+    let win_y = 824.0;
 
-    for i in 0..rows {
-        for j in 0..columns {
-            if i == 0 && j == 0 { continue; }
-            let last = {
-                if j == 0 { els.get((i - 1) * columns).expect(":(") }
-                else { els.last().expect(":(") }
-            };
+    let size = 21.;
 
-            let curr = {
-                if j == 0 { last.below(*last).shift_y(-3.0) }
-                else { last.right_of(*last).shift_x(3.0) }
-            };
+    let offset = 0.;
+    let start_x = -(win_x / 2.) - (size / 2.) + 2.5;
+    let start_y = win_y / 2. + (size / 2.) - 2.5;
 
-            draw.rect()
-                .x_y(curr.x() + random_range(-3.85, 3.85), curr.y() + random_range(-3.85, 3.85))
-                .wh(curr.wh())
-                .color(colors[random_range(0, colors.len())]);
-
-            for k in 0..3 {
-                let dim = random_range(8.0, 89.0);
-                let c = colors[random_range(0, colors.len())];
-                draw.rect()
-                    .x_y(curr.x() + random_range(-4.85, 4.85), curr.y() + random_range(-4.85, 4.85))
-                    .w_h(dim, dim)
-                    .z_degrees({
-                        if random_f32() >= 0.75 { random_range(-180.0, 180.0) } else { 0.0 }
-                    })
-                    .color(rgba(c.red, c.green, c.blue, random_range(0.05, 0.25)));
-            }
-            
-            els.push(curr);
+    let mut positions: Vec<(usize, usize)> = Vec::new();
+    for i in 0..41 {
+        for j in 0..41 {
+            positions.push((i,j));
         }
     }
 
-    /*for j in 1..25 {
-        let last = els.last().expect("No element");
-        let curr = last.right_of(*last).shift_x(3.0);
-        draw.rect()
-            .xy(curr.xy())
-            .wh(curr.wh())
-            .color(SALMON);
-        els.push(curr);
+    let mut still_active: Vec<usize> = (0..positions.len()).collect();
+    
+    let mut next_element = random_range(0, still_active.len());
+    loop {
+        let (i,j) = positions[still_active[next_element]];
+        still_active.remove(next_element as usize);
+
+        let px = start_x + (size * j as f32) + (offset * j as f32);
+            let py = start_y - (size * i as f32) - (offset * i as f32);
+
+            let stroke_color = colors[random_range(0, colors.len())];
+            let stroke_weight = random_range(0.10, 23.85);
+
+            draw.ellipse()
+                .x_y(px, py)
+                .w_h(size, size)
+                .color(transparent)
+                .stroke(stroke_color)
+                .stroke_weight(stroke_weight);
+        
+        if still_active.len() > 0 {
+            next_element = random_range(0, still_active.len());
+        } else {
+            break;
+        }
+    }
+
+    /*for i in 0..41 {
+        for j in 0..41 {
+            let px = start_x + (size * j as f32) + (offset * j as f32);
+            let py = start_y - (size * i as f32) - (offset * i as f32);
+
+            let stroke_color = colors[random_range(0, colors.len())];
+            let stroke_weight = random_range(0.25, 13.85);
+
+            draw.ellipse()
+                .x_y(px, py)
+                .w_h(size, size)
+                .color(transparent)
+                .stroke(stroke_color)
+                .stroke_weight(stroke_weight);
+        }
     }*/
 
+    
     // Write the result of our drawing to the window's frame.
     draw.to_frame(app, &frame).unwrap();
 
@@ -102,5 +102,5 @@ fn captured_frame_path(app: &App, frame: &Frame) -> std::path::PathBuf {
 }
 
 fn main() {
-    nannou::sketch(view).size(1080,1080).run();
+    nannou::sketch(view).size(864,864).run();
 }
