@@ -3,3 +3,4 @@
 *.lock
 .DS_Store
 /images
+.bak

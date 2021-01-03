@@ -3,8 +3,70 @@ name = "imnotprovable"
 version = "0.1.0"
 authors = ["finalfire <f.cauteruccio@gmail.com>"]
 edition = "2018"
+keywords = ["art", "creative", "generative", "code"]
+repository = "https://github.com/finalfire/imnotprovable"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 nannou = "0.15"
+
+[[example]]
+name = "dx0"
+path = "src/dx0.rs"
+
+[[example]]
+name = "dx1"
+path = "src/dx1.rs"
+
+[[example]]
+name = "dx2"
+path = "src/dx2.rs"
+
+[[example]]
+name = "dx3"
+path = "src/dx3.rs"
+
+[[example]]
+name = "dx4"
+path = "src/dx4.rs"
+
+[[example]]
+name = "dx5"
+path = "src/dx5.rs"
+
+[[example]]
+name = "dx6"
+path = "src/dx6.rs"
+
+[[example]]
+name = "dx7"
+path = "src/dx7.rs"
+
+[[example]]
+name = "dx8"
+path = "src/dx8.rs"
+
+[[example]]
+name = "dx9"
+path = "src/dx9.rs"
+
+[[example]]
+name = "dx10"
+path = "src/dx10.rs"
+
+[[example]]
+name = "dx11"
+path = "src/dx11.rs"
+
+[[example]]
+name = "dx12"
+path = "src/dx12.rs"
+
+[[example]]
+name = "costarica"
+path = "src/costarica.rs"
+
+[[example]]
+name = "dx13"
+path = "src/dx13.rs"
