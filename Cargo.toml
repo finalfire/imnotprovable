@@ -70,3 +70,19 @@ path = "src/costarica.rs"
 [[example]]
 name = "dx13"
 path = "src/dx13.rs"
+
+[[example]]
+name = "dx14"
+path = "src/dx14.rs"
+
+[[example]]
+name = "dx15"
+path = "src/dx15.rs"
+
+[[example]]
+name = "dx16"
+path = "src/dx16.rs"
+
+[[example]]
+name = "dx17"
+path = "src/dx17.rs"
